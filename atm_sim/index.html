@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulación ATM - Arena Style</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Simulación de Cajero Automático (ATM)</h1>
+            <p>Modelo de Colas: Llegada &rarr; Cola &rarr; Atención &rarr; Salida</p>
+        </header>
+
+        <main>
+            <!-- Dashboard de Estadísticas -->
+            <div class="dashboard">
+                <div class="card">
+                    <h3>Reloj de Simulación</h3>
+                    <div class="value" id="clock-display">00:00:00</div>
+                    <div class="label">Hora (12h Turno)</div>
+                </div>
+                <div class="card">
+                    <h3>Clientes en Cola</h3>
+                    <div class="value" id="queue-count">0</div>
+                    <div class="label">Esperando</div>
+                </div>
+                <div class="card">
+                    <h3>Clientes Atendidos</h3>
+                    <div class="value" id="served-count">0</div>
+                    <div class="label">Total Finalizados</div>
+                </div>
+                <div class="card status-card">
+                    <h3>Estado del Cajero</h3>
+                    <div class="status-indicator idle" id="atm-status">LIBRE</div>
+                </div>
+            </div>
+
+            <!-- Área de Visualización -->
+            <div class="simulation-area">
+                <!-- Los elementos se generarán dinámicamente aquí o usaremos Canvas -->
+                <div class="module source">
+                    <div class="module-icon">🚪</div>
+                    <div class="module-label">Llegada</div>
+                </div>
+                
+                <div class="connector"></div>
+
+                <div class="module queue-container">
+                    <div class="queue-visual" id="queue-visual">
+                        <!-- Clientes en cola aparecerán aquí -->
+                    </div>
+                    <div class="module-label">Cola</div>
+                </div>
+
+                <div class="connector"></div>
+
+                <div class="module server">
+                    <div class="server-visual" id="server-visual">
+                        <!-- Cliente siendo atendido -->
+                    </div>
+                    <div class="module-label">ATM (Cajero)</div>
+                </div>
+
+                <div class="connector"></div>
+
+                <div class="module sink">
+                    <div class="module-icon">🏁</div>
+                    <div class="module-label">Salida</div>
+                </div>
+            </div>
+
+            <!-- Controles -->
+            <div class="controls">
+                <button id="btn-start" class="btn primary">Iniciar Simulación</button>
+                <button id="btn-reset" class="btn secondary">Reiniciar</button>
+                <div class="speed-control">
+                    <label for="speed-range">Velocidad:</label>
+                    <input type="range" id="speed-range" min="1" max="100" value="10">
+                </div>
+                <div class="arrival-control">
+                    <label for="arrival-manual"><input type="checkbox" id="arrival-manual"> Llegadas manual</label>
+                    <label for="arrival-interval">Intervalo de Llegada:</label>
+                    <input type="number" id="arrival-interval" min="0.1" step="0.1" value="1.5" style="width:6rem;"> 
+                    <select id="arrival-units">
+                        <option value="s">segundos</option>
+                        <option value="m">minutos</option>
+                        <option value="h">horas</option>
+                    </select>
+                    <div class="arrival-info" id="next-arrival-display">Siguiente llegada: N/A</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="simulation.js"></script>
+</body>
+</html>
